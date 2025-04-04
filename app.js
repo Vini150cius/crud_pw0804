@@ -38,9 +38,11 @@ app.use("/integrantes", integranteRouter);
 
 // Iniciar o servidor e sincronizar com o banco de dados
 
+const PORT = process.env.PORT || 3000;
+
 db.sequelize.sync().then(() => {
-  app.listen(3000, () => {
-    console.log("Servidor em execução na porta 3000");
+  app.listen(PORT, () => {
+    console.log(`Servidor em execução na porta ${PORT}`);
   });
 });
 
