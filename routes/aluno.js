@@ -1,64 +1,111 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const {Aluno} = require('../models');
+const { Aluno, Curso } = require("../models"); // Ajuste o caminho conforme necessário
 
+// Mostrar todos os produtos
 router.get("/", async (req, res) => {
-    const alunos = await Aluno.findAll();
-    res.render(
-        "base", {
-        title: "Listar Alunos",
-        view: "alunos/show",
-        alunos,
-        }
-    );
+  try {
+    const alunos = await Produto.findAll({
+      include: [{ model: Curso, as: "Curso" }],
+    });
+
+    res.render("base", {
+      title: "Alunos",
+      view: "alunos/show",
+      produtos,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Erro ao recuperar produtos");
+  }
 });
 
+// Formulário para adicionar um novo produto
 router.get("/add", async (req, res) => {
-  res.render(
-    "base",
-    {
-      title: "Add Alunos",
+  try {
+    const cursos = await Curso.findAll();
+    res.render("base", {
+      title: "Add Aluno",
       view: "alunos/add",
-    }
-  );
+      cursos,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Erro ao recuperar cursos");
+  }
 });
 
+// Adicionar um novo produto
 router.post("/add", async (req, res) => {
-  await Aluno.create({
-    ra: req.body.ra, 
-    nome: req.body.nome, 
-  });
-  res.redirect("/alunos");
+  try {
+    const { nome, telefone, cursoId } = req.body;
+    await Aluno.create({
+      nome,
+      telefone,
+      cursoId,
+    });
+    res.redirect("/alunos");
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Erro ao adicionar aluno");
+  }
 });
 
+// Formulário para editar um produto
 router.get("/edit/:id", async (req, res) => {
-  const aluno = await Aluno.findByPk(req.params.id); 
-  res.render(
-    "base",
-    {
-      title: "edit Alunos",
-      view: "alunos/edit",
-      aluno,
+  try {
+    const { id } = req.params;
+    const aluno = await Aluno.findByPk(id, {
+      include: [{ model: Curso, as: "Curso" }],
+    });
+    const cursos = await Curso.findAll();
+    if (aluno) {
+      res.render("base", {
+        title: "Edit Aluno",
+        view: "alunos/edit",
+        aluno,
+        cursos,
+      });
+    } else {
+      res.status(404).send("Aluno não encontrado");
     }
-  );
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Erro ao recuperar aluno");
+  }
 });
 
 router.post("/edit/:id", async (req, res) => {
-  await Aluno.update(
-    {
-      ra: req.body.ra,
-      nome: req.body.nome,
-    },
-    {
-      where: { id: req.params.id },
+  try {
+    const { id } = req.params;
+    const { nome, telefone, cursoId } = req.body;
+    const aluno = await Aluno.findByPk(id);
+    if (aluno) {
+      await aluno.update({ nome, telefone, cursoId });
+      res.redirect("/alunos");
+    } else {
+      res.status(404).send("Aluno não encontrado");
     }
-  );
-  res.redirect("/alunos");
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Erro ao atualizar o aluno");
+  }
 });
 
-router.post("/delete/:id", async(req, res) =>{
-  await Aluno.destroy({where:{id: req.params.id}});
-  res.redirect("/alunos")
+router.post("/delete/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const aluno = await Aluno.findByPk(id);
+    if (aluno) {
+      await aluno.destroy();
+      res.redirect("/alunos");
+    } else {
+      res.status(404).send("Aluno não encontrado");
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Erro ao excluir aluno");
+  }
 });
 
 module.exports = router;
