@@ -1,8 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const { Boletim, Atribuicao } = require("../models"); // Ajuste o caminho conforme necessário
+const { Boletim, Atribuicao } = require("../models"); 
 
-// Mostrar todos os produtos
 router.get("/", async (req, res) => {
   try {
     const boletins = await Produto.findAll({
@@ -12,7 +11,7 @@ router.get("/", async (req, res) => {
     res.render("base", {
       title: "Boletins",
       view: "boletins/show",
-      produtos,
+      boletins,
     });
   } catch (err) {
     console.error(err);
@@ -20,7 +19,6 @@ router.get("/", async (req, res) => {
   }
 });
 
-// Formulário para adicionar um novo produto
 router.get("/add", async (req, res) => {
   try {
     const atribuicoes = await Atribuicao.findAll();
@@ -35,7 +33,6 @@ router.get("/add", async (req, res) => {
   }
 });
 
-// Adicionar um novo produto
 router.post("/add", async (req, res) => {
   try {
     const { nota, bimestre } = req.body;
@@ -50,7 +47,6 @@ router.post("/add", async (req, res) => {
   }
 });
 
-// Formulário para editar um produto
 router.get("/edit/:id", async (req, res) => {
   try {
     const { id } = req.params;

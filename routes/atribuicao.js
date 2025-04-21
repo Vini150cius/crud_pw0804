@@ -8,11 +8,10 @@ router.get("/", async (req, res) => {
         "base", {
             title: "Listar Categorias",
             view: "atribuicoes/show",
-            categorias,
+            atribuicoes,
     });
 });
 
-//add nova categoria - formulário
 router.get("/add", async (req, res) => {
     res.render(
         "base", {
@@ -21,7 +20,6 @@ router.get("/add", async (req, res) => {
     });
 });
 
-//add nova categoria - no bd
 router.post("/add", async(req, res) =>{
     await Atribuicao.create({
         nome: req.body.nome,
@@ -31,18 +29,16 @@ router.post("/add", async(req, res) =>{
     res.redirect("/atribuicoes")
 });
 
-//edit categoria - formulário
 router.get("/edit/:id", async (req, res) => {
     const atribuicao = await Atribuicao.findByPk(req.params.id);
     res.render(
         "base", {
             title: "Editar Atribuicao",
             view: "atribuicoes/edit",
-            categoria,
+            atribuicao,
     });
 });
 
-//edit categoria - no bd
 router.post("/edit/:id", async(req, res) =>{
     await Atribuicao.update(
         {
@@ -55,7 +51,6 @@ router.post("/edit/:id", async(req, res) =>{
     res.redirect("/atribuicoes")
 });
 
-//excluir categoria
 router.post("/delete/:id", async(req, res) =>{
     await Atribuicao.destroy({where:{id: req.params.id}});
     res.redirect("/atribuicoes")

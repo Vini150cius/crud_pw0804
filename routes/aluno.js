@@ -1,8 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const { Aluno, Curso } = require("../models"); // Ajuste o caminho conforme necessário
+const { Aluno, Curso } = require("../models");
 
-// Mostrar todos os produtos
 router.get("/", async (req, res) => {
   try {
     const alunos = await Produto.findAll({
@@ -20,7 +19,6 @@ router.get("/", async (req, res) => {
   }
 });
 
-// Formulário para adicionar um novo produto
 router.get("/add", async (req, res) => {
   try {
     const cursos = await Curso.findAll();
@@ -35,7 +33,6 @@ router.get("/add", async (req, res) => {
   }
 });
 
-// Adicionar um novo produto
 router.post("/add", async (req, res) => {
   try {
     const { nome, telefone, cursoId } = req.body;
@@ -51,7 +48,6 @@ router.post("/add", async (req, res) => {
   }
 });
 
-// Formulário para editar um produto
 router.get("/edit/:id", async (req, res) => {
   try {
     const { id } = req.params;
