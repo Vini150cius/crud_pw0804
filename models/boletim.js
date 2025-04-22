@@ -5,15 +5,17 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false
         },
         bimestre: {
-            type: DataTypes.INT,
+            type: DataTypes.INTEGER, 
             allowNull: false
          }
     })
 
     Boletim.associate = (models) => {
-        Boletim.hasMany(models.Atribuicao, {
-            foreignKey: 'atribuicaoID',
+        Boletim.belongsTo(models.Atribuicao, {  
+            foreignKey: 'atribuicao_id',  
             as: 'atribuicao'
         })
     }
+
+    return Boletim;  
 }
