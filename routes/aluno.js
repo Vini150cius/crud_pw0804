@@ -4,18 +4,18 @@ const { Aluno, Curso } = require("../models");
 
 router.get("/", async (req, res) => {
   try {
-    const alunos = await Produto.findAll({
+    const alunos = await Aluno.findAll({
       include: [{ model: Curso, as: "Curso" }],
     });
 
     res.render("base", {
       title: "Alunos",
       view: "alunos/show",
-      produtos,
+      alunos,
     });
   } catch (err) {
     console.error(err);
-    res.status(500).send("Erro ao recuperar produtos");
+    res.status(500).send("Erro ao recuperar alunos");
   }
 });
 

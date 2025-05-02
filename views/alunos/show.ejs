@@ -7,6 +7,8 @@
         <tr>
             <th>ID</th>
             <th>Nome</th>
+            <th>Telefone</th>
+            <th>Curso</th>
             <th>Ações</th>
         </tr>
     </thead>
@@ -18,6 +20,12 @@
                 </td>
                 <td>
                     <%= aluno.nome %>
+                </td>
+                <td>
+                    <%= aluno.telefone %>
+                </td>
+                <td>
+                    <%= aluno.Curso.nome %>
                 </td>
                 <td>
                     <a href="/alunos/edit/<%= aluno.id %>" class="btn btn-primary btn-sm">Editar</a>

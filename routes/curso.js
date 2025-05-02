@@ -7,7 +7,7 @@ router.get("/", async (req, res) => {
     res.render(
         "base", {
             title: "Listar cursos",
-            view: "cursos/show",
+            view: "curso/show",
             cursos,
     });
 });
@@ -16,7 +16,7 @@ router.get("/add", async (req, res) => {
     res.render(
         "base", {
             title: "Adicionar Curso",
-            view: "cursos/add",
+            view: "curso/add",
     });
 });
 
@@ -30,7 +30,7 @@ router.get("/edit/:id", async (req, res) => {
     res.render(
         "base", {
             title: "Editar Curso",
-            view: "cursos/edit",
+            view: "curso/edit",
             curso,
     });
 });

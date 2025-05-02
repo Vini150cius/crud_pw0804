@@ -16,6 +16,8 @@
     "ejs-layouts": "^0.0.1",
     "express": "^4.21.2",
     "mysql2": "^3.14.0",
+    "pg": "^8.15.6",
+    "pg-hstore": "^2.3.4",
     "sequelize": "^6.37.6"
   },
   "devDependencies": {
