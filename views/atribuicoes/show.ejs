@@ -1,0 +1,32 @@
+<h1>Atribuições</h1>
+<a href="/atribuicoes/add" class="btn btn-success mb-3">Add Atribuição</a>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Matéria</th>
+            <th>Nota</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% atribuicoes.forEach(atribuicao => { %>
+        <tr>
+            <td><%= atribuicao.id %></td>
+            <td><%= atribuicao.nome %></td>
+            <td><%= atribuicao.materia %></td>
+            <td><%= atribuicao.nota %></td>
+            <td>
+                <a href="/atribuicoes/edit/<%= atribuicao.id %>"
+                    class="btn btn-primary btn-sm">Editar</a>
+                <form action="/atribuicoes/delete/<%= atribuicao.id %>"
+                    method="POST" class="d-inline">
+                    <button type="submit"
+                        class="btn btn-danger btn-sm">Delete</button>
+                </form>
+            </td>
+        </tr>
+        <% }) %>
+    </tbody>
+</table>

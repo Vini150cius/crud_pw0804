@@ -1,0 +1,40 @@
+<h1>Boletins</h1>
+
+<a href="/boletins/add" class="btn btn-success mb-3">Add Boletins</a>
+<table class="table table-bordered">
+
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nota</th>
+            <th>Bimestre</th>
+            <th>Atribuição</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% boletins.forEach(boletim=> { %>
+            <tr>
+                <td>
+                    <%= boletim.id %>
+                </td>
+                <td>
+                    <%= boletim.nota %>
+                </td>
+                <td>
+                    <%= boletim.bimestre %>
+                </td>
+                <td>
+                    <%= boletim.atribuicao ? boletim.atribuicao.nome : 'N/A' %>
+                </td>
+                <td>
+                    <a href="/boletins/edit/<%= boletim.id %>" class="btn btn-primary btn-sm">Editar</a>
+                    <form action="/boletins/delete/<%= boletim.id %>" method="POST" class="d-inline">
+                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+                </td>
+            </tr>
+
+            <% }) %>
+    </tbody>
+</table>

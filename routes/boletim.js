@@ -4,8 +4,8 @@ const { Boletim, Atribuicao } = require("../models");
 
 router.get("/", async (req, res) => {
   try {
-    const boletins = await Produto.findAll({
-      include: [{ model: Atribuicao, as: "Atribuicao" }],
+    const boletins = await Boletim.findAll({
+      include: [{ model: Atribuicao, as: "atribuicao", attributes: ['id', 'nome', 'materia', 'nota'] }],
     }); 
 
     res.render("base", {
@@ -15,7 +15,7 @@ router.get("/", async (req, res) => {
     });
   } catch (err) {
     console.error(err);
-    res.status(500).send("Erro ao recuperar produtos");
+    res.status(500).send("Erro ao recuperar boletins");
   }
 });
 
@@ -35,10 +35,11 @@ router.get("/add", async (req, res) => {
 
 router.post("/add", async (req, res) => {
   try {
-    const { nota, bimestre } = req.body;
+    const { nota, bimestre, atribuicaoId } = req.body;
     await Boletim.create({
       nota,
-      bimestre
+      bimestre,
+      atribuicao_id: atribuicaoId
     });
     res.redirect("/boletins");
   } catch (err) {
@@ -51,7 +52,7 @@ router.get("/edit/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const boletim = await Boletim.findByPk(id, {
-      include: [{ model: Atribuicao, as: "Atribuicao" }],
+      include: [{ model: Atribuicao, as: "atribuicao" }],
     });
     const atribuicoes = await Atribuicao.findAll();
     if (boletim) {
@@ -73,10 +74,10 @@ router.get("/edit/:id", async (req, res) => {
 router.post("/edit/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const { nota, bimestre } = req.body;
+    const { nota, bimestre, atribuicaoId } = req.body;
     const boletim = await Boletim.findByPk(id);
     if (boletim) {
-      await boletim.update({ nota, bimestre });
+      await boletim.update({ nota, bimestre, atribuicao_id: atribuicaoId });
       res.redirect("/boletins");
     } else {
       res.status(404).send("Boletim não encontrado");

@@ -1,0 +1,20 @@
+<h1>Add Boletim</h1>
+<form action="/boletins/add" method="POST">
+    <div class="form-group">
+        <label for="nota">Nota</label>
+        <input type="text" class="form-control" id="nota" name="nota" required>
+    </div>
+    <div class="form-group">
+        <label for="bimestre">Bimestre</label>
+        <input type="text" class="form-control" id="bimestre" name="bimestre" required>
+    </div>
+    <div class="form-group">
+        <label for="atribuicao">Atribuição</label>
+        <select class="form-control" id="atribuicao" name="atribuicaoId" required>
+            <% atribuicoes.forEach(atribuicao => { %>
+                <option value="<%= atribuicao.id %>"><%= atribuicao.nome %></option>
+            <% }) %>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Add</button>
+</form>

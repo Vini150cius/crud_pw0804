@@ -1,0 +1,16 @@
+<h1>Editar Atribuição</h1>
+<form action="/atribuicoes/edit/<%= atribuicao.id %>" method="POST">
+    <div class="form-group">
+        <label for="nome">Nome da Atribuição</label>
+        <input type="text" class="form-control" id="nome" name="nome" value="<%= atribuicao.nome %>" required>
+    </div>
+    <div class="form-group">
+        <label for="materia">Matéria da Atribuição</label>
+        <input type="text" class="form-control" id="materia" name="materia" value="<%= atribuicao.materia %>" required>
+    </div>
+    <div class="form-group">
+        <label for="nota">Nota da Atribuição</label>
+        <input type="text" class="form-control" id="nota" name="nota" value="<%= atribuicao.nota %>" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Atualizar</button>
+</form>

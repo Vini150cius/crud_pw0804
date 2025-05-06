@@ -1,0 +1,22 @@
+<h1>Editar Boletim</h1>
+<form action="/boletins/edit/<%= boletim.id %>" method="POST">
+    <div class="form-group">
+        <label for="nota">Nota</label>
+        <input type="text" class="form-control" id="nota" name="nota" value="<%= boletim.nota %>" required>
+    </div>
+    <div class="form-group">
+        <label for="bimestre">Bimestre</label>
+        <input type="text" class="form-control" id="telefone" name="telefone" value="<%= boletim.telefone %>" required>
+    </div>
+    <div class="form-group">
+        <label for="atribuicao">Atribuição</label>
+        <select class="form-control" id="atribuicao" name="atribuicaoId" required>
+            <% atribuicoes.forEach(atribuicao => { %>
+                <option value="<%= atribuicao.id %>" <%= boletim.atribuicaoId === atribuicao.id ? 'selected' : '' %>>
+                    <%= atribuicao.nome %>
+                </option>
+            <% }) %>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Atualizar</button>
+</form>
